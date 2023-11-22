@@ -5,7 +5,25 @@ import 'package:old/core/services/i_network_service.dart';
 typedef Headers = Map<String, dynamic>;
 typedef JSON = Map<String, dynamic>;
 
-class NetworkService extends INetworkService {
+abstract class NetworkingService {
+  NetworkingService({
+    required this.baseUrl,
+    required this.defaultHeaders,
+    required this.key,
+  });
+
+  final String baseUrl;
+  final Headers? defaultHeaders;
+  final String key;
+
+  Future<T> request<T>(
+    String endpoint, {
+    required HttpMethods method,
+    Headers? headers,
+  });
+}
+
+class NetworkService extends NetworkingService {
   NetworkService({
     required super.baseUrl,
     required super.key,
