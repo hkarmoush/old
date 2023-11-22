@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:old/l10n/l10n.dart';
 import 'package:old/presentation/screens/navigation_bar.dart';
 
 class App extends StatelessWidget {
@@ -14,8 +13,6 @@ class App extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       home: const Root(key: Key('ROOT_WIDGET')),
     );
   }
