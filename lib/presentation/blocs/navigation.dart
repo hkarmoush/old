@@ -4,17 +4,30 @@ abstract class NavigationEvent {}
 
 class NavigateToHomeEvent extends NavigationEvent {}
 
+class NavigateToSearchEvent extends NavigationEvent {}
+
+class NavigateToPlayerEvent extends NavigationEvent {}
+
+class NavigateToPodcastsEvent extends NavigationEvent {}
+
 class NavigateToSettingsEvent extends NavigationEvent {}
 
 class NavigationBloc extends Bloc<NavigationEvent, int> {
-  NavigationBloc() : super(0);
-
-  @override
-  Stream<dynamic> mapEventToState(NavigationEvent event) async* {
-    if (event is NavigateToHomeEvent) {
-      yield 0; // You can use any value to represent the home page
-    } else if (event is NavigateToSettingsEvent) {
-      yield 1; // You can use any value to represent the settings page
-    }
+  NavigationBloc() : super(0) {
+    on<NavigateToHomeEvent>((event, emit) {
+      emit(0);
+    });
+    on<NavigateToSearchEvent>((event, emit) {
+      emit(1);
+    });
+    on<NavigateToPlayerEvent>((event, emit) {
+      emit(2);
+    });
+    on<NavigateToPodcastsEvent>((event, emit) {
+      emit(3);
+    });
+    on<NavigateToSettingsEvent>((event, emit) {
+      emit(4);
+    });
   }
 }

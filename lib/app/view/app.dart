@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:old/l10n/l10n.dart';
+import 'package:old/presentation/blocs/navigation.dart';
 import 'package:old/presentation/screens/navigation_bar.dart';
 
 class App extends StatelessWidget {
@@ -16,8 +18,13 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const Root(
-        key: Key('ROOT_WIDGET'),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NavigationBloc>(create: (_) => NavigationBloc()),
+        ],
+        child: const Root(
+          key: Key('ROOT_WIDGET'),
+        ),
       ),
     );
   }
