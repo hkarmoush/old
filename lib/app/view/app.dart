@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:old/counter/counter.dart';
 import 'package:old/l10n/l10n.dart';
+import 'package:old/presentation/screens/navigation_bar.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const Root(key: Key('ROOT_WIDGET')),
     );
   }
 }

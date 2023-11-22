@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:old/core/services/i_network_service.dart';
 
 typedef Headers = Map<String, dynamic>;
 typedef JSON = Map<String, dynamic>;
+
+enum HttpMethods { get, post, put, delete }
 
 abstract class NetworkingService {
   NetworkingService({

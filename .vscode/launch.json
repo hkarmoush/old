@@ -1,0 +1,102 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug Development",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--flavor",
+                "development",
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Profile Development",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--flavor",
+                "development",
+                "--profile"
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Release Development",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--flavor",
+                "development",
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Debug Staging",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging",
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Profile Staging",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging",
+                "--profile"
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Release Staging",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging",
+                "--release"
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+
+        {
+            "name": "Debug Production",
+            "program": "lib/main_production.dart",
+            "args": [
+                "--flavor",
+                "production",
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Profile Production",
+            "program": "lib/main_production.dart",
+            "args": [
+                "--flavor",
+                "production",
+                "--profile"
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Release Production",
+            "program": "lib/main_production.dart",
+            "args": [
+                "--flavor",
+                "production",
+                "--release"
+            ],
+            "request": "launch",
+            "type": "dart"
+        },
+    ]
+}
