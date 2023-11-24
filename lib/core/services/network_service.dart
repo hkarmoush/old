@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-typedef Headers = Map<String, dynamic>;
+typedef Headers = Map<String, String>;
 typedef JSON = Map<String, dynamic>;
 
 enum HttpMethods { get, post, put, delete }
@@ -42,7 +42,7 @@ class NetworkService extends NetworkingService {
 
     switch (method) {
       case HttpMethods.get:
-        return _get(uri, headers: mergedHeaders);
+        return _get<T>(uri, headers: mergedHeaders);
       case HttpMethods.post:
         return _post(uri, headers: mergedHeaders);
       case HttpMethods.put:
@@ -54,28 +54,29 @@ class NetworkService extends NetworkingService {
 
   Future<T> _get<T>(String uri, {Headers? headers}) async {
     final response = await http.get(
-      Uri.dataFromString(uri),
+      Uri.parse(uri),
+      // headers: headers,
     );
     return _parseResponse<T>(response.body);
   }
 
   Future<T> _post<T>(String uri, {Headers? headers}) async {
     final response = await http.post(
-      Uri.dataFromString(uri),
+      Uri.parse(uri),
     );
     return _parseResponse<T>(response.body);
   }
 
   Future<T> _put<T>(String uri, {Headers? headers}) async {
     final response = await http.put(
-      Uri.dataFromString(uri),
+      Uri.parse(uri),
     );
     return _parseResponse<T>(response.body);
   }
 
   Future<T> _delete<T>(String uri, {Headers? headers}) async {
     final response = await http.delete(
-      Uri.dataFromString(uri),
+      Uri.parse(uri),
     );
     return _parseResponse<T>(response.body);
   }

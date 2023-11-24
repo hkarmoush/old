@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'artist_dto.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class ArtistDTO {
   ArtistDTO({
     required this.id,

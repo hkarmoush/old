@@ -10,11 +10,10 @@ class SearchRepositoryImpl implements SearchRepository {
   final NetworkingService _networkingService;
 
   @override
-  Future<SearchResponseEntity> search(String query) async {
+  Future<SearchResponseEntity> search(String? query) async {
     final response = await _networkingService.request<Map<String, dynamic>>(
       '/search?q=$query',
       method: HttpMethods.get,
-      headers: {'Authorization': 'Bearer your_access_token'},
     );
 
     final dto = SearchResponseDTO.fromJson(response);

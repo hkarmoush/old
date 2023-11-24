@@ -4,7 +4,7 @@ import 'package:old/data/dto/artist_dto.dart';
 
 part 'track_dto.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class TrackDTO {
   TrackDTO({
     required this.id,

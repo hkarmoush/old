@@ -21,12 +21,16 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, int>(
       builder: (context, currentIndex) {
+        print(currentIndex);
         return MultiBlocProvider(
           providers: [
             BlocProvider<HomeBloc>(
-              create: (_) => HomeBloc(
-                searchUseCase: di.get<SearchUseCaseImpl>(),
-              ),
+              create: (_) {
+                return HomeBloc(
+                  searchUseCase: di.get<SearchUseCaseImpl>(),
+                );
+              },
+              lazy: false,
             ),
             BlocProvider<SearchBloc>(create: (_) => SearchBloc()),
             BlocProvider<PlayerBloc>(create: (_) => PlayerBloc()),

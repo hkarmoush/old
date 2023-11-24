@@ -1,12 +1,25 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:old/gen/assets.gen.dart';
+import 'package:old/presentation/features/home/bloc/home_bloc.dart';
 import 'package:old/presentation/widgets/track_cell.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<HomeBloc>(context).add(const HomeEvent.started());
+  }
 
   @override
   Widget build(BuildContext context) {
