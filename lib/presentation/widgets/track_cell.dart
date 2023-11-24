@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:old/core/services/audio_service.dart';
 import 'package:old/di.dart';
 import 'package:old/domain/entities/track_entity.dart';
 import 'package:old/gen/assets.gen.dart';
+import 'package:old/presentation/features/player/player.dart';
 
 class TrackCell extends StatelessWidget {
   const TrackCell({
@@ -26,14 +28,14 @@ class TrackCell extends StatelessWidget {
   InkWell _leading(BuildContext context) {
     return InkWell(
       onTap: () {
-        // di.get<AudioPlayerService>().play(track.preview);
+        context.read<PlayerBloc>().add(PlayerEvent.play(track.preview));
       },
       child: CircleAvatar(
         backgroundColor: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: SvgPicture.asset(
-            $AssetsIconsGen().playArrow,
+            const $AssetsIconsGen().playArrow,
             color: Theme.of(context).primaryColor,
           ),
         ),
