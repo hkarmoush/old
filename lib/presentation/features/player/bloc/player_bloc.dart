@@ -10,7 +10,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
   PlayerBloc() : super(const PlayerState.initial()) {
     on<PlayerEvent>(emitEvent);
   }
-  final AudioPlayerService _audioPlayerService = AudioPlayerService();
+  // final AudioPlayerService _audioPlayerService = AudioPlayerService();
 
   Future<void> emitEvent(PlayerEvent event, Emitter<PlayerState> emit) async {
     await for (final state in mapEventToState(event)) {
@@ -28,22 +28,22 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         yield const PlayerState.loading();
 
         try {
-          await _audioPlayerService.play(playEvent.url);
+          // await _audioPlayerService.play(playEvent.url);
           yield const PlayerState.playing();
         } catch (error) {
           yield PlayerState.error(error.toString());
         }
       },
       pause: (pauseEvent) async* {
-        await _audioPlayerService.pause();
+        // await _audioPlayerService.pause();
         yield const PlayerState.paused();
       },
       resume: (resumeEvent) async* {
-        await _audioPlayerService.resume();
+        // await _audioPlayerService.resume();
         yield const PlayerState.playing();
       },
       stop: (stopEvent) async* {
-        await _audioPlayerService.stop();
+        // await _audioPlayerService.stop();
         yield const PlayerState.stopped();
       },
     );
