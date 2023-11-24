@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:old/di.dart';
+import 'package:old/domain/usecases/imp/search_usecase.dart';
 import 'package:old/gen/assets.gen.dart';
 import 'package:old/presentation/blocs/navigation.dart';
 import 'package:old/presentation/features/home/bloc/home_bloc.dart';
@@ -21,7 +23,11 @@ class Root extends StatelessWidget {
       builder: (context, currentIndex) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider<HomeBloc>(create: (_) => HomeBloc()),
+            BlocProvider<HomeBloc>(
+              create: (_) => HomeBloc(
+                searchUseCase: di.get<SearchUseCaseImpl>(),
+              ),
+            ),
             BlocProvider<SearchBloc>(create: (_) => SearchBloc()),
             BlocProvider<PlayerBloc>(create: (_) => PlayerBloc()),
             BlocProvider<PodcastsBloc>(create: (_) => PodcastsBloc()),

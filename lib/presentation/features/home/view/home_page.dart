@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:old/gen/assets.gen.dart';
+import 'package:old/presentation/widgets/track_cell.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,16 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildBody(BuildContext context) {
-    return Container();
+  ListView buildBody(BuildContext context) {
+    return ListView.builder(
+      itemCount: 1000,
+      prototypeItem: const TrackCell(isPlaying: false),
+      itemBuilder: (context, index) {
+        return TrackCell(
+          key: Key('TRACK_CELL_$index'),
+          isPlaying: Random().nextBool(),
+        );
+      },
+    );
   }
 }

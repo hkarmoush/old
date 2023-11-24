@@ -17,11 +17,22 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Color(0xFFFFFFFF),
           ),
+          displayMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+          ),
+          displaySmall: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w300,
+            color: Color(0xFFFFFFFF),
+          ),
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         scaffoldBackgroundColor: const Color(0xFF212A32),
+        primaryColor: const Color(0xFFF75191),
         useMaterial3: true,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
