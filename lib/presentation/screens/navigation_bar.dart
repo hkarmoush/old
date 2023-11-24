@@ -43,23 +43,23 @@ class Root extends StatelessWidget {
               },
               items: [
                 _bottomNavigationBarItem(
-                  icon: $AssetsIconsGen().home,
+                  icon: const $AssetsIconsGen().home,
                   label: 'Home',
                 ),
                 _bottomNavigationBarItem(
-                  icon: $AssetsIconsGen().magnifier,
+                  icon: const $AssetsIconsGen().magnifier,
                   label: 'Search',
                 ),
                 _bottomNavigationBarItem(
-                  icon: $AssetsIconsGen().playArrow,
+                  icon: const $AssetsIconsGen().playArrow,
                   label: 'Player',
                 ),
                 _bottomNavigationBarItem(
-                  icon: $AssetsIconsGen().podcast,
+                  icon: const $AssetsIconsGen().podcast,
                   label: 'Podcasts',
                 ),
                 _bottomNavigationBarItem(
-                  icon: $AssetsIconsGen().gear,
+                  icon: const $AssetsIconsGen().gear,
                   label: 'Settings',
                 ),
               ],
