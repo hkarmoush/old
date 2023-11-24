@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 15),
       child: SvgPicture.asset(
-        $AssetsIconsGen().magnifier,
+        const $AssetsIconsGen().magnifier,
       ),
     );
   }

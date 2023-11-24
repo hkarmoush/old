@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:old/gen/assets.gen.dart';
 import 'package:old/presentation/blocs/navigation.dart';
 import 'package:old/presentation/features/home/bloc/home_bloc.dart';
 import 'package:old/presentation/features/home/view/home_page.dart';
@@ -35,23 +37,23 @@ class Root extends StatelessWidget {
               },
               items: [
                 _bottomNavigationBarItem(
-                  icon: Icons.home,
+                  assetPath: $AssetsIconsGen().home,
                   label: 'Home',
                 ),
                 _bottomNavigationBarItem(
-                  icon: Icons.search,
+                  assetPath: $AssetsIconsGen().magnifier,
                   label: 'Search',
                 ),
                 _bottomNavigationBarItem(
-                  icon: Icons.home,
+                  assetPath: $AssetsIconsGen().playArrow,
                   label: 'Player',
                 ),
                 _bottomNavigationBarItem(
-                  icon: Icons.podcasts,
+                  assetPath: $AssetsIconsGen().podcast,
                   label: 'Podcasts',
                 ),
                 _bottomNavigationBarItem(
-                  icon: Icons.settings,
+                  assetPath: $AssetsIconsGen().gear,
                   label: 'Settings',
                 ),
               ],
@@ -80,13 +82,15 @@ class Root extends StatelessWidget {
   }
 
   BottomNavigationBarItem _bottomNavigationBarItem({
-    required IconData icon,
+    required String assetPath,
     required String label,
   }) {
     return BottomNavigationBarItem(
       backgroundColor: Colors.grey,
-      icon: Icon(icon),
-      label: label,
+      icon: SvgPicture.asset(
+        assetPath,
+      ),
+      label: '',
     );
   }
 
