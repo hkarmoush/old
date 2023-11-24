@@ -16,8 +16,8 @@ void initDI() {
     )
     ..registerLazySingleton<SearchUseCaseImpl>(
       () => SearchUseCaseImpl(di<SearchRepositoryImpl>()),
-    )
-    ..registerLazySingleton<AudioPlayerService>(AudioPlayerService.new);
+    );
+  // ..registerLazySingleton<AudioPlayerService>(AudioPlayerService.new);
 }
 
 NetworkService injectNetworkService() {

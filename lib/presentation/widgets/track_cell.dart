@@ -26,7 +26,7 @@ class TrackCell extends StatelessWidget {
   InkWell _leading(BuildContext context) {
     return InkWell(
       onTap: () {
-        di.get<AudioPlayerService>().play(track.preview);
+        // di.get<AudioPlayerService>().play(track.preview);
       },
       child: CircleAvatar(
         backgroundColor: Colors.white,

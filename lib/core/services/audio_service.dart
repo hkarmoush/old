@@ -1,39 +1,40 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerService {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  // Play audio from a URL
   Future<void> play(String url) async {
-    await _audioPlayer.play(UrlSource(url));
+    await _audioPlayer.setUrl(url);
+    await _audioPlayer.play();
   }
 
-  // Pause audio playback
   Future<void> pause() async {
     await _audioPlayer.pause();
   }
 
-  // Resume audio playback
   Future<void> resume() async {
-    await _audioPlayer.resume();
+    await _audioPlayer.play();
   }
 
-  // Stop audio playback
   Future<void> stop() async {
     await _audioPlayer.stop();
   }
 
-  // Seek to a specific position
   Future<void> seek(Duration position) async {
     await _audioPlayer.seek(position);
   }
 
-  // Get the current playback position
-  Future<Duration?> getCurrentPosition() async {
-    return _audioPlayer.getCurrentPosition();
+  Future<Duration> getCurrentPosition() async {
+    return _audioPlayer.position;
   }
 
-  // Dispose of the audio player when it's no longer needed
+  Stream<Duration?> get onDurationChanged => _audioPlayer.durationStream;
+
+  Stream<Duration> get onPositionChanged => _audioPlayer.positionStream;
+
+  Stream<PlayerState> get onPlayerStateChanged =>
+      _audioPlayer.playerStateStream;
+
   void dispose() {
     _audioPlayer.dispose();
   }
