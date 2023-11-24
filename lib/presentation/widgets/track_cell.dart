@@ -34,12 +34,12 @@ class _TrackCellState extends State<TrackCell> {
   Widget _leading(BuildContext context) {
     final playerBloc = context.read<PlayerBloc>();
 
-    return StreamBuilder<String?>(
-      stream: playerBloc.playingUrlStream,
-      initialData: playerBloc.playingUrl,
+    return StreamBuilder<TrackEntity?>(
+      stream: playerBloc.playingTrackStream,
+      initialData: playerBloc.playingTrack,
       builder: (context, snapshot) {
         final playingUrl = snapshot.data;
-        final isPlaying = playingUrl != widget.track.preview;
+        final isPlaying = playingUrl != widget.track;
         return InkWell(
           onTap: () {
             if (_paused) {
@@ -54,7 +54,7 @@ class _TrackCellState extends State<TrackCell> {
                   _paused = true;
                 });
               } else {
-                playerBloc.add(PlayerEvent.play(widget.track.preview));
+                playerBloc.add(PlayerEvent.play(widget.track));
               }
             }
           },

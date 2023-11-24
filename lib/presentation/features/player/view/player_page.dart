@@ -23,11 +23,11 @@ class PlayerPage extends StatelessWidget {
               if (state == const PlayerState.stopped()) const Text('Stopped'),
               ElevatedButton(
                 onPressed: () {
-                  context.read<PlayerBloc>().add(
-                        const PlayerEvent.play(
-                          'your_audio_url.mp3',
-                        ),
-                      );
+                  // context.read<PlayerBloc>().add(
+                  //       const PlayerEvent.play(
+                  //         'your_audio_url.mp3',
+                  //       ),
+                  //     );
                 },
                 child: const Text('Play'),
               ),

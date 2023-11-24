@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:old/core/services/audio_service.dart';
+import 'package:old/domain/entities/track_entity.dart';
 
 part 'player_event.dart';
 part 'player_state.dart';
@@ -15,17 +16,17 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     on<PlayerEvent>(emitEvent);
     _audioPlayerService.onPlayerStateChanged.listen((event) {
       if (event.processingState == ProcessingState.completed) {
-        playingUrl = null;
-        _playingUrlController.add(null);
+        playingTrack = null;
+        _playingTrackController.add(null);
       }
     });
   }
 
   final AudioPlayerService _audioPlayerService = AudioPlayerService();
-  final _playingUrlController = StreamController<String?>.broadcast();
+  final _playingTrackController = StreamController<TrackEntity?>.broadcast();
 
-  String? playingUrl;
-  Stream<String?> get playingUrlStream => _playingUrlController.stream;
+  TrackEntity? playingTrack;
+  Stream<TrackEntity?> get playingTrackStream => _playingTrackController.stream;
 
   Future<void> emitEvent(PlayerEvent event, Emitter<PlayerState> emit) async {
     await for (final state in mapEventToState(event)) {
@@ -41,17 +42,16 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       },
       play: (playEvent) async* {
         log('Play');
-        if (playingUrl != playEvent.url) {
-          log('Playing Different File ${playEvent.url}');
+        if (playingTrack != playEvent.track) {
           await _audioPlayerService.stop();
         }
 
         yield const PlayerState.loading();
 
         try {
-          playingUrl = playEvent.url;
-          _playingUrlController.add(playEvent.url);
-          await _audioPlayerService.play(playEvent.url);
+          playingTrack = playEvent.track;
+          _playingTrackController.add(playEvent.track);
+          await _audioPlayerService.play(playEvent.track.preview);
 
           yield const PlayerState.playing();
         } catch (error) {
@@ -71,8 +71,8 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       stop: (stopEvent) async* {
         log('Stop');
         await _audioPlayerService.stop();
-        playingUrl = null;
-        _playingUrlController.add(null);
+        playingTrack = null;
+        _playingTrackController.add(null);
         yield const PlayerState.stopped();
       },
     );

@@ -19,7 +19,7 @@ mixin _$PlayerEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
@@ -28,7 +28,7 @@ mixin _$PlayerEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
@@ -37,7 +37,7 @@ mixin _$PlayerEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
@@ -131,7 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
@@ -143,7 +143,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
@@ -155,7 +155,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
@@ -218,7 +218,9 @@ abstract class _$$PlayImplCopyWith<$Res> {
           _$PlayImpl value, $Res Function(_$PlayImpl) then) =
       __$$PlayImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String url});
+  $Res call({TrackEntity track});
+
+  $TrackEntityCopyWith<$Res> get track;
 }
 
 /// @nodoc
@@ -231,28 +233,36 @@ class __$$PlayImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = null,
+    Object? track = null,
   }) {
     return _then(_$PlayImpl(
-      null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as TrackEntity,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TrackEntityCopyWith<$Res> get track {
+    return $TrackEntityCopyWith<$Res>(_value.track, (value) {
+      return _then(_value.copyWith(track: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$PlayImpl implements _Play {
-  const _$PlayImpl(this.url);
+  const _$PlayImpl(this.track);
 
   @override
-  final String url;
+  final TrackEntity track;
 
   @override
   String toString() {
-    return 'PlayerEvent.play(url: $url)';
+    return 'PlayerEvent.play(track: $track)';
   }
 
   @override
@@ -260,11 +270,11 @@ class _$PlayImpl implements _Play {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlayImpl &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.track, track) || other.track == track));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, url);
+  int get hashCode => Object.hash(runtimeType, track);
 
   @JsonKey(ignore: true)
   @override
@@ -276,38 +286,38 @@ class _$PlayImpl implements _Play {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
   }) {
-    return play(url);
+    return play(track);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
   }) {
-    return play?.call(url);
+    return play?.call(track);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
     required TResult orElse(),
   }) {
     if (play != null) {
-      return play(url);
+      return play(track);
     }
     return orElse();
   }
@@ -354,9 +364,9 @@ class _$PlayImpl implements _Play {
 }
 
 abstract class _Play implements PlayerEvent {
-  const factory _Play(final String url) = _$PlayImpl;
+  const factory _Play(final TrackEntity track) = _$PlayImpl;
 
-  String get url;
+  TrackEntity get track;
   @JsonKey(ignore: true)
   _$$PlayImplCopyWith<_$PlayImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -401,7 +411,7 @@ class _$PauseImpl implements _Pause {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
@@ -413,7 +423,7 @@ class _$PauseImpl implements _Pause {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
@@ -425,7 +435,7 @@ class _$PauseImpl implements _Pause {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
@@ -521,7 +531,7 @@ class _$ResumeImpl implements _Resume {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
@@ -533,7 +543,7 @@ class _$ResumeImpl implements _Resume {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
@@ -545,7 +555,7 @@ class _$ResumeImpl implements _Resume {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
@@ -640,7 +650,7 @@ class _$StopImpl implements _Stop {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String url) play,
+    required TResult Function(TrackEntity track) play,
     required TResult Function() pause,
     required TResult Function() resume,
     required TResult Function() stop,
@@ -652,7 +662,7 @@ class _$StopImpl implements _Stop {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String url)? play,
+    TResult? Function(TrackEntity track)? play,
     TResult? Function()? pause,
     TResult? Function()? resume,
     TResult? Function()? stop,
@@ -664,7 +674,7 @@ class _$StopImpl implements _Stop {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String url)? play,
+    TResult Function(TrackEntity track)? play,
     TResult Function()? pause,
     TResult Function()? resume,
     TResult Function()? stop,
@@ -731,7 +741,6 @@ mixin _$PlayerState {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -742,7 +751,6 @@ mixin _$PlayerState {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -753,7 +761,6 @@ mixin _$PlayerState {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -765,7 +772,6 @@ mixin _$PlayerState {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -776,7 +782,6 @@ mixin _$PlayerState {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -787,7 +792,6 @@ mixin _$PlayerState {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -855,7 +859,6 @@ class _$InitialImpl implements _Initial {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return initial();
   }
@@ -869,7 +872,6 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return initial?.call();
   }
@@ -883,7 +885,6 @@ class _$InitialImpl implements _Initial {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -901,7 +902,6 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return initial(this);
   }
@@ -915,7 +915,6 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return initial?.call(this);
   }
@@ -929,7 +928,6 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -987,7 +985,6 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return loading();
   }
@@ -1001,7 +998,6 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return loading?.call();
   }
@@ -1015,7 +1011,6 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1033,7 +1028,6 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return loading(this);
   }
@@ -1047,7 +1041,6 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return loading?.call(this);
   }
@@ -1061,7 +1054,6 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1119,7 +1111,6 @@ class _$PlayingImpl implements _Playing {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return playing();
   }
@@ -1133,7 +1124,6 @@ class _$PlayingImpl implements _Playing {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return playing?.call();
   }
@@ -1147,7 +1137,6 @@ class _$PlayingImpl implements _Playing {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (playing != null) {
@@ -1165,7 +1154,6 @@ class _$PlayingImpl implements _Playing {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return playing(this);
   }
@@ -1179,7 +1167,6 @@ class _$PlayingImpl implements _Playing {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return playing?.call(this);
   }
@@ -1193,7 +1180,6 @@ class _$PlayingImpl implements _Playing {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (playing != null) {
@@ -1251,7 +1237,6 @@ class _$PausedImpl implements _Paused {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return paused();
   }
@@ -1265,7 +1250,6 @@ class _$PausedImpl implements _Paused {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return paused?.call();
   }
@@ -1279,7 +1263,6 @@ class _$PausedImpl implements _Paused {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (paused != null) {
@@ -1297,7 +1280,6 @@ class _$PausedImpl implements _Paused {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return paused(this);
   }
@@ -1311,7 +1293,6 @@ class _$PausedImpl implements _Paused {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return paused?.call(this);
   }
@@ -1325,7 +1306,6 @@ class _$PausedImpl implements _Paused {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (paused != null) {
@@ -1383,7 +1363,6 @@ class _$StoppedImpl implements _Stopped {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return stopped();
   }
@@ -1397,7 +1376,6 @@ class _$StoppedImpl implements _Stopped {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return stopped?.call();
   }
@@ -1411,7 +1389,6 @@ class _$StoppedImpl implements _Stopped {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (stopped != null) {
@@ -1429,7 +1406,6 @@ class _$StoppedImpl implements _Stopped {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return stopped(this);
   }
@@ -1443,7 +1419,6 @@ class _$StoppedImpl implements _Stopped {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return stopped?.call(this);
   }
@@ -1457,7 +1432,6 @@ class _$StoppedImpl implements _Stopped {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (stopped != null) {
@@ -1542,7 +1516,6 @@ class _$ErrorImpl implements _Error {
     required TResult Function() paused,
     required TResult Function() stopped,
     required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
   }) {
     return error(errorMessage);
   }
@@ -1556,7 +1529,6 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? paused,
     TResult? Function()? stopped,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
   }) {
     return error?.call(errorMessage);
   }
@@ -1570,7 +1542,6 @@ class _$ErrorImpl implements _Error {
     TResult Function()? paused,
     TResult Function()? stopped,
     TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1588,7 +1559,6 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Paused value) paused,
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
   }) {
     return error(this);
   }
@@ -1602,7 +1572,6 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Paused value)? paused,
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
   }) {
     return error?.call(this);
   }
@@ -1616,7 +1585,6 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Paused value)? paused,
     TResult Function(_Stopped value)? stopped,
     TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1632,168 +1600,5 @@ abstract class _Error implements PlayerState {
   String get errorMessage;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UrlChangedImplCopyWith<$Res> {
-  factory _$$UrlChangedImplCopyWith(
-          _$UrlChangedImpl value, $Res Function(_$UrlChangedImpl) then) =
-      __$$UrlChangedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String newUrl});
-}
-
-/// @nodoc
-class __$$UrlChangedImplCopyWithImpl<$Res>
-    extends _$PlayerStateCopyWithImpl<$Res, _$UrlChangedImpl>
-    implements _$$UrlChangedImplCopyWith<$Res> {
-  __$$UrlChangedImplCopyWithImpl(
-      _$UrlChangedImpl _value, $Res Function(_$UrlChangedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newUrl = null,
-  }) {
-    return _then(_$UrlChangedImpl(
-      null == newUrl
-          ? _value.newUrl
-          : newUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UrlChangedImpl implements _UrlChanged {
-  const _$UrlChangedImpl(this.newUrl);
-
-  @override
-  final String newUrl;
-
-  @override
-  String toString() {
-    return 'PlayerState.urlChanged(newUrl: $newUrl)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UrlChangedImpl &&
-            (identical(other.newUrl, newUrl) || other.newUrl == newUrl));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, newUrl);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UrlChangedImplCopyWith<_$UrlChangedImpl> get copyWith =>
-      __$$UrlChangedImplCopyWithImpl<_$UrlChangedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() playing,
-    required TResult Function() paused,
-    required TResult Function() stopped,
-    required TResult Function(String errorMessage) error,
-    required TResult Function(String newUrl) urlChanged,
-  }) {
-    return urlChanged(newUrl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? playing,
-    TResult? Function()? paused,
-    TResult? Function()? stopped,
-    TResult? Function(String errorMessage)? error,
-    TResult? Function(String newUrl)? urlChanged,
-  }) {
-    return urlChanged?.call(newUrl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? playing,
-    TResult Function()? paused,
-    TResult Function()? stopped,
-    TResult Function(String errorMessage)? error,
-    TResult Function(String newUrl)? urlChanged,
-    required TResult orElse(),
-  }) {
-    if (urlChanged != null) {
-      return urlChanged(newUrl);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Playing value) playing,
-    required TResult Function(_Paused value) paused,
-    required TResult Function(_Stopped value) stopped,
-    required TResult Function(_Error value) error,
-    required TResult Function(_UrlChanged value) urlChanged,
-  }) {
-    return urlChanged(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Playing value)? playing,
-    TResult? Function(_Paused value)? paused,
-    TResult? Function(_Stopped value)? stopped,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_UrlChanged value)? urlChanged,
-  }) {
-    return urlChanged?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Playing value)? playing,
-    TResult Function(_Paused value)? paused,
-    TResult Function(_Stopped value)? stopped,
-    TResult Function(_Error value)? error,
-    TResult Function(_UrlChanged value)? urlChanged,
-    required TResult orElse(),
-  }) {
-    if (urlChanged != null) {
-      return urlChanged(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UrlChanged implements PlayerState {
-  const factory _UrlChanged(final String newUrl) = _$UrlChangedImpl;
-
-  String get newUrl;
-  @JsonKey(ignore: true)
-  _$$UrlChangedImplCopyWith<_$UrlChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

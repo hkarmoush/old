@@ -27,6 +27,12 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w300,
             color: Color(0xFFFFFFFF),
           ),
+          bodyMedium: TextStyle(
+            //lato, regular
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            color: Color(0xFFFFFFFF),
+          ),
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
