@@ -1,30 +1,43 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:old/presentation/features/home/home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:old/gen/assets.gen.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeBloc(),
-      child: const HomeView(),
+    return Scaffold(
+      appBar: buildAppBar(context),
+      body: buildBody(context),
     );
   }
-}
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        // TODO: return correct widget based on the state.
-        return const SizedBox();
-      },
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      centerTitle: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Text(
+        'ALL SONGS',
+        style: Theme.of(context).textTheme.displayLarge,
+      ),
+      actions: [
+        buildSearchIcon(),
+      ],
     );
+  }
+
+  Padding buildSearchIcon() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: SvgPicture.asset(
+        $AssetsIconsGen().magnifier,
+      ),
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
+    return Container();
   }
 }

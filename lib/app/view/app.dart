@@ -11,9 +11,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+          ),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
+        scaffoldBackgroundColor: const Color(0xFF212A32),
         useMaterial3: true,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

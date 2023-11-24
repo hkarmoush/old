@@ -9,7 +9,9 @@ import 'package:old/presentation/features/search/search.dart';
 import 'package:old/presentation/features/settings/settings.dart';
 
 class Root extends StatelessWidget {
-  const Root({super.key});
+  const Root({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +30,7 @@ class Root extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: (index) {
-                final NavigationEvent event;
-                if (index == 0) {
-                  event = NavigateToHomeEvent();
-                } else if (index == 1) {
-                  event = NavigateToSearchEvent();
-                } else if (index == 2) {
-                  event = NavigateToPlayerEvent();
-                } else if (index == 3) {
-                  event = NavigateToPodcastsEvent();
-                } else {
-                  event = NavigateToSettingsEvent();
-                }
+                final event = _getNavigationEvent(index);
                 context.read<NavigationBloc>().add(event);
               },
               items: [
@@ -99,9 +90,18 @@ class Root extends StatelessWidget {
     );
   }
 
-  Widget _coloredScaffold(Color color) {
-    return Scaffold(
-      backgroundColor: color,
-    );
+  NavigationEvent _getNavigationEvent(int index) {
+    switch (index) {
+      case 0:
+        return NavigateToHomeEvent();
+      case 1:
+        return NavigateToSearchEvent();
+      case 2:
+        return NavigateToPlayerEvent();
+      case 3:
+        return NavigateToPodcastsEvent();
+      default:
+        return NavigateToSettingsEvent();
+    }
   }
 }
