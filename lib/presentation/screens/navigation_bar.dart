@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,7 +40,15 @@ class Root extends StatelessWidget {
             BlocProvider<SettingsBloc>(create: (_) => SettingsBloc()),
           ],
           child: Scaffold(
-            body: _buildBody(currentIndex),
+            body: Stack(
+              children: [
+                _buildBody(currentIndex),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: _miniPlayer(context),
+                ),
+              ],
+            ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: (index) {
@@ -71,6 +81,23 @@ class Root extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _miniPlayer(BuildContext context) {
+    return ClipRect(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.1,
+        decoration: const BoxDecoration(
+          color: Color(0xFF303033),
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+          child: Container(
+            color: Colors.white.withOpacity(0.12),
+          ),
+        ),
+      ),
     );
   }
 

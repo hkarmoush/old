@@ -7,7 +7,7 @@ import 'package:old/domain/entities/track_entity.dart';
 import 'package:old/gen/assets.gen.dart';
 import 'package:old/presentation/features/player/player.dart';
 
-class TrackCell extends StatelessWidget {
+class TrackCell extends StatefulWidget {
   const TrackCell({
     required this.track,
     super.key,
@@ -15,6 +15,12 @@ class TrackCell extends StatelessWidget {
 
   final TrackEntity track;
 
+  @override
+  State<TrackCell> createState() => _TrackCellState();
+}
+
+class _TrackCellState extends State<TrackCell> {
+  bool _paused = false;
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -25,42 +31,76 @@ class TrackCell extends StatelessWidget {
     );
   }
 
-  InkWell _leading(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        context.read<PlayerBloc>().add(PlayerEvent.play(track.preview));
-      },
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SvgPicture.asset(
-            const $AssetsIconsGen().playArrow,
-            color: Theme.of(context).primaryColor,
+  Widget _leading(BuildContext context) {
+    final playerBloc = context.read<PlayerBloc>();
+
+    return StreamBuilder<String?>(
+      stream: playerBloc.playingUrlStream,
+      initialData: playerBloc.playingUrl,
+      builder: (context, snapshot) {
+        final playingUrl = snapshot.data;
+        final isPlaying = playingUrl != widget.track.preview;
+        return InkWell(
+          onTap: () {
+            if (_paused) {
+              playerBloc.add(const PlayerEvent.resume());
+              setState(() {
+                _paused = false;
+              });
+            } else {
+              if (!isPlaying) {
+                playerBloc.add(const PlayerEvent.pause());
+                setState(() {
+                  _paused = true;
+                });
+              } else {
+                playerBloc.add(PlayerEvent.play(widget.track.preview));
+              }
+            }
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: SvgPicture.asset(
+                isPlaying || _paused
+                    ? const $AssetsIconsGen().playArrow
+                    : const $AssetsIconsGen().pause,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   Text _title(BuildContext context) {
     return Text(
-      track.title,
+      widget.track.title,
       style: Theme.of(context).textTheme.displayMedium,
     );
   }
 
   Text _subtitle(BuildContext context) {
     return Text(
-      track.artist.name,
+      widget.track.artist.name,
       style: Theme.of(context).textTheme.displaySmall,
     );
   }
 
   Text _duration(BuildContext context) {
     return Text(
-      '3:23',
+      formatDuration(widget.track.duration),
       style: Theme.of(context).textTheme.displaySmall,
     );
+  }
+
+  String formatDuration(int seconds) {
+    final duration = Duration(seconds: seconds);
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$twoDigitMinutes:$twoDigitSeconds";
   }
 }
