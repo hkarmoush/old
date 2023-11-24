@@ -36,7 +36,6 @@ class Root extends StatelessWidget {
               lazy: false,
             ),
             BlocProvider<SearchBloc>(create: (_) => SearchBloc()),
-            BlocProvider<PlayerBloc>(create: (_) => PlayerBloc()),
             BlocProvider<PodcastsBloc>(create: (_) => PodcastsBloc()),
             BlocProvider<SettingsBloc>(create: (_) => SettingsBloc()),
           ],
@@ -91,45 +90,64 @@ class Root extends StatelessWidget {
       stream: playerBloc.playingTrackStream,
       initialData: playerBloc.playingTrack,
       builder: (context, snapshot) {
-        return ClipRect(
-          child: Container(
-            height: 72,
-            decoration: const BoxDecoration(
-              color: Color(0xFF303033),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
-              child: Container(
-                color: Colors.white.withOpacity(0.12),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(8),
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(12),
+        return Visibility(
+          visible: snapshot.data != null,
+          child: ClipRect(
+            child: Container(
+              height: 72,
+              decoration: const BoxDecoration(
+                color: Color(0xFF303033),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+                child: Container(
+                  color: Colors.white.withOpacity(0.12),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(8),
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: snapshot.data?.album.cover != null
+                            ? Image.network(
+                                snapshot.data!.album.cover,
+                              )
+                            : null,
                       ),
-                    ),
-                    Text(
-                      'The Thrill',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      $AssetsIconsGen().pause,
-                      height: 32,
-                      color: Color(0xFFFFFFFF),
-                    ),
-                    const SizedBox(width: 20),
-                    SvgPicture.asset(
-                      $AssetsIconsGen().playArrow,
-                      height: 32,
-                      color: Color(0xFFFFFFFF),
-                    ),
-                    const SizedBox(width: 16),
-                  ],
+                      Text(
+                        snapshot.data?.title ?? '',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () => context
+                            .read<PlayerBloc>()
+                            .add(const PlayerEvent.pause()),
+                        child: SvgPicture.asset(
+                          $AssetsIconsGen().pause,
+                          height: 32,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      InkWell(
+                        onTap: () => context
+                            .read<PlayerBloc>()
+                            .add(const PlayerEvent.resume()),
+                        child: SvgPicture.asset(
+                          $AssetsIconsGen().playArrow,
+                          height: 32,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                    ],
+                  ),
                 ),
               ),
             ),

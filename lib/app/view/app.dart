@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:old/l10n/l10n.dart';
 import 'package:old/presentation/blocs/navigation.dart';
+import 'package:old/presentation/features/player/bloc/player_bloc.dart';
 import 'package:old/presentation/screens/navigation_bar.dart';
 
 class App extends StatelessWidget {
@@ -46,6 +47,9 @@ class App extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider<NavigationBloc>(create: (_) => NavigationBloc()),
+          BlocProvider<PlayerBloc>(
+            create: (_) => PlayerBloc(),
+          ),
         ],
         child: const Root(
           key: Key('ROOT_WIDGET'),
