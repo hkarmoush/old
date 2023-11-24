@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildBody(BuildContext context, HomeState state) {
     return state.map(
       initial: (_) {
-        return ListView();
+        return const SizedBox.expand();
       },
       loading: (_) {
         return const Center(child: CircularProgressIndicator());
@@ -74,7 +74,6 @@ class _HomePageState extends State<HomePage> {
             return TrackCell(
               track: track,
               key: Key('TRACK_CELL_$index'),
-              isPlaying: Random().nextBool(),
             );
           },
         );

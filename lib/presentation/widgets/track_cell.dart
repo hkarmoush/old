@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:old/core/services/audio_service.dart';
+import 'package:old/di.dart';
 import 'package:old/domain/entities/track_entity.dart';
 import 'package:old/gen/assets.gen.dart';
 
 class TrackCell extends StatelessWidget {
   const TrackCell({
     required this.track,
-    required this.isPlaying,
     super.key,
   });
 
-  final bool isPlaying;
   final TrackEntity track;
 
   @override
@@ -23,14 +23,19 @@ class TrackCell extends StatelessWidget {
     );
   }
 
-  CircleAvatar _leading(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: SvgPicture.asset(
-          isPlaying ? $AssetsIconsGen().pause : $AssetsIconsGen().playArrow,
-          color: Theme.of(context).primaryColor,
+  InkWell _leading(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        di.get<AudioPlayerService>().play(track.preview);
+      },
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: SvgPicture.asset(
+            $AssetsIconsGen().playArrow,
+            color: Theme.of(context).primaryColor,
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:old/core/services/audio_service.dart';
 import 'package:old/core/services/network_service.dart';
 import 'package:old/domain/repositories/search_repository.dart';
 import 'package:old/domain/usecases/imp/search_usecase.dart';
@@ -15,7 +16,8 @@ void initDI() {
     )
     ..registerLazySingleton<SearchUseCaseImpl>(
       () => SearchUseCaseImpl(di<SearchRepositoryImpl>()),
-    );
+    )
+    ..registerLazySingleton<AudioPlayerService>(AudioPlayerService.new);
 }
 
 NetworkService injectNetworkService() {
