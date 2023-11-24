@@ -55,7 +55,7 @@ class NetworkService extends NetworkingService {
   Future<T> _get<T>(String uri, {Headers? headers}) async {
     final response = await http.get(
       Uri.parse(uri),
-      // headers: headers,
+      headers: headers,
     );
     return _parseResponse<T>(response.body);
   }
@@ -63,6 +63,7 @@ class NetworkService extends NetworkingService {
   Future<T> _post<T>(String uri, {Headers? headers}) async {
     final response = await http.post(
       Uri.parse(uri),
+      headers: headers,
     );
     return _parseResponse<T>(response.body);
   }
@@ -70,6 +71,7 @@ class NetworkService extends NetworkingService {
   Future<T> _put<T>(String uri, {Headers? headers}) async {
     final response = await http.put(
       Uri.parse(uri),
+      headers: headers,
     );
     return _parseResponse<T>(response.body);
   }
@@ -77,6 +79,7 @@ class NetworkService extends NetworkingService {
   Future<T> _delete<T>(String uri, {Headers? headers}) async {
     final response = await http.delete(
       Uri.parse(uri),
+      headers: headers,
     );
     return _parseResponse<T>(response.body);
   }

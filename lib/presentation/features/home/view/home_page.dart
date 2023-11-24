@@ -23,9 +23,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: buildBody(context),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: buildAppBar(context),
+          body: buildBody(context, state),
+        );
+      },
     );
   }
 
@@ -53,14 +57,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ListView buildBody(BuildContext context) {
-    return ListView.builder(
-      itemCount: 1000,
-      prototypeItem: const TrackCell(isPlaying: false),
-      itemBuilder: (context, index) {
-        return TrackCell(
-          key: Key('TRACK_CELL_$index'),
-          isPlaying: Random().nextBool(),
+  Widget buildBody(BuildContext context, HomeState state) {
+    return state.map(
+      initial: (_) {
+        return ListView();
+      },
+      loading: (_) {
+        return const Center(child: CircularProgressIndicator());
+      },
+      searchSuccess: (state) {
+        final searchResult = state.searchResult;
+        return ListView.builder(
+          itemCount: searchResult.data.length,
+          itemBuilder: (context, index) {
+            final track = searchResult.data[index];
+            return TrackCell(
+              track: track,
+              key: Key('TRACK_CELL_$index'),
+              isPlaying: Random().nextBool(),
+            );
+          },
+        );
+      },
+      searchError: (searchErrorState) {
+        return Center(
+          child: Text('Error: ${searchErrorState.errorMessage}'),
         );
       },
     );
