@@ -37,23 +37,23 @@ class Root extends StatelessWidget {
               },
               items: [
                 _bottomNavigationBarItem(
-                  assetPath: $AssetsIconsGen().home,
+                  icon: $AssetsIconsGen().home,
                   label: 'Home',
                 ),
                 _bottomNavigationBarItem(
-                  assetPath: $AssetsIconsGen().magnifier,
+                  icon: $AssetsIconsGen().magnifier,
                   label: 'Search',
                 ),
                 _bottomNavigationBarItem(
-                  assetPath: $AssetsIconsGen().playArrow,
+                  icon: $AssetsIconsGen().playArrow,
                   label: 'Player',
                 ),
                 _bottomNavigationBarItem(
-                  assetPath: $AssetsIconsGen().podcast,
+                  icon: $AssetsIconsGen().podcast,
                   label: 'Podcasts',
                 ),
                 _bottomNavigationBarItem(
-                  assetPath: $AssetsIconsGen().gear,
+                  icon: $AssetsIconsGen().gear,
                   label: 'Settings',
                 ),
               ],
@@ -64,8 +64,8 @@ class Root extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(int currentIndex) {
-    switch (currentIndex) {
+  Widget _buildBody(int index) {
+    switch (index) {
       case 0:
         return const HomePage();
       case 1:
@@ -77,18 +77,18 @@ class Root extends StatelessWidget {
       case 4:
         return const SettingsPage();
       default:
-        return Container();
+        return const SizedBox.expand();
     }
   }
 
   BottomNavigationBarItem _bottomNavigationBarItem({
-    required String assetPath,
+    required String icon,
     required String label,
   }) {
     return BottomNavigationBarItem(
       backgroundColor: Colors.grey,
       icon: SvgPicture.asset(
-        assetPath,
+        icon,
       ),
       label: '',
     );
