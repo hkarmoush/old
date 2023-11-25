@@ -109,7 +109,6 @@ class Root extends StatelessWidget {
                         width: 42,
                         height: 42,
                         decoration: BoxDecoration(
-                          color: Colors.blue,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         clipBehavior: Clip.antiAlias,
