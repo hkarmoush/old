@@ -155,7 +155,7 @@ class Root extends StatelessWidget {
     switch (index) {
       case 0:
         return BlocProvider.value(
-          value: context.read<PlayerBloc>(),
+          value: BlocProvider.of<PlayerBloc>(context, listen: true),
           child: const HomePage(),
         );
       case 1:

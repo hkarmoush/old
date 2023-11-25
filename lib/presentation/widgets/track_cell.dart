@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,12 +26,19 @@ class _TrackCellState extends State<TrackCell> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const PlayerPage(),
-        ),
-      ),
+      onTap: () {
+        final bloc = context.read<PlayerBloc>();
+        log(bloc.toString());
+        Navigator.push(
+          context,
+          MaterialPageRoute<PlayerPage>(
+            builder: (context) => BlocProvider.value(
+              value: bloc,
+              child: const PlayerPage(),
+            ),
+          ),
+        );
+      },
       leading: _leading(context),
       title: _title(context),
       subtitle: _subtitle(context),

@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:old/presentation/features/player/player.dart';
 
 class PlayerPage extends StatelessWidget {
-  const PlayerPage({super.key});
+  const PlayerPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<PlayerBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Music Player'),
