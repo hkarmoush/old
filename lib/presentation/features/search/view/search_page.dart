@@ -26,7 +26,7 @@ class SearchView extends StatelessWidget {
         return Scaffold(
           body: Center(
             child: Text(
-              'SETTINGS',
+              'Search',
               style: Theme.of(context).textTheme.displayLarge,
             ),
           ),

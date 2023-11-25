@@ -24,7 +24,6 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, int>(
       builder: (context, currentIndex) {
-        print(currentIndex);
         return MultiBlocProvider(
           providers: [
             BlocProvider<HomeBloc>(
@@ -42,7 +41,7 @@ class Root extends StatelessWidget {
           child: Scaffold(
             body: Stack(
               children: [
-                _buildBody(currentIndex),
+                _buildBody(context, currentIndex),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: _miniPlayer(context),
@@ -63,10 +62,6 @@ class Root extends StatelessWidget {
                 _bottomNavigationBarItem(
                   icon: const $AssetsIconsGen().magnifier,
                   label: 'Search',
-                ),
-                _bottomNavigationBarItem(
-                  icon: const $AssetsIconsGen().playArrow,
-                  label: 'Player',
                 ),
                 _bottomNavigationBarItem(
                   icon: const $AssetsIconsGen().podcast,
@@ -100,7 +95,7 @@ class Root extends StatelessWidget {
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
-                child: Container(
+                child: ColoredBox(
                   color: Colors.white.withOpacity(0.12),
                   child: Row(
                     children: [
@@ -156,17 +151,18 @@ class Root extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(int index) {
+  Widget _buildBody(BuildContext context, int index) {
     switch (index) {
       case 0:
-        return const HomePage();
+        return BlocProvider.value(
+          value: context.read<PlayerBloc>(),
+          child: const HomePage(),
+        );
       case 1:
         return const SearchPage();
       case 2:
-        return const PlayerPage();
-      case 3:
         return const PodcastsPage();
-      case 4:
+      case 3:
         return const SettingsPage();
       default:
         return const SizedBox.expand();
@@ -193,9 +189,9 @@ class Root extends StatelessWidget {
       case 1:
         return NavigateToSearchEvent();
       case 2:
-        return NavigateToPlayerEvent();
-      case 3:
         return NavigateToPodcastsEvent();
+      case 3:
+        return NavigateToSettingsEvent();
       default:
         return NavigateToSettingsEvent();
     }

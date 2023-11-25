@@ -20,14 +20,11 @@ class NavigationBloc extends Bloc<NavigationEvent, int> {
     on<NavigateToSearchEvent>((event, emit) {
       emit(1);
     });
-    on<NavigateToPlayerEvent>((event, emit) {
+    on<NavigateToPodcastsEvent>((event, emit) {
       emit(2);
     });
-    on<NavigateToPodcastsEvent>((event, emit) {
-      emit(3);
-    });
     on<NavigateToSettingsEvent>((event, emit) {
-      emit(4);
+      emit(3);
     });
   }
 }

@@ -24,6 +24,12 @@ class _TrackCellState extends State<TrackCell> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const PlayerPage(),
+        ),
+      ),
       leading: _leading(context),
       title: _title(context),
       subtitle: _subtitle(context),
