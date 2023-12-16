@@ -68,7 +68,9 @@ class _TrackCellState extends State<TrackCell> {
                   _paused = true;
                 });
               } else {
-                playerBloc.add(PlayerEvent.play(widget.track));
+                playerBloc
+                  ..add(PlayerEvent.play(widget.track))
+                  ..add(const PlayerEvent.resume());
               }
             }
           },

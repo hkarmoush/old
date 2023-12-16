@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:old/l10n/l10n.dart';
 import 'package:old/presentation/blocs/navigation.dart';
 import 'package:old/presentation/features/player/bloc/player_bloc.dart';
-import 'package:old/presentation/screens/navigation_bar.dart';
+import 'package:old/presentation/navigation_bar.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
