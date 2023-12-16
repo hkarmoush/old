@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:old/core/services/audio_service.dart';
-import 'package:old/di.dart';
 import 'package:old/domain/entities/track_entity.dart';
 import 'package:old/gen/assets.gen.dart';
 import 'package:old/presentation/features/player/player.dart';
@@ -28,13 +26,14 @@ class _TrackCellState extends State<TrackCell> {
     return ListTile(
       onTap: () {
         final bloc = context.read<PlayerBloc>();
-        log(bloc.toString());
         Navigator.push(
           context,
           MaterialPageRoute<PlayerPage>(
             builder: (context) => BlocProvider.value(
               value: bloc,
-              child: const PlayerPage(),
+              child: PlayerPage(
+                track: widget.track,
+              ),
             ),
           ),
         );
@@ -113,9 +112,9 @@ class _TrackCellState extends State<TrackCell> {
 
   String formatDuration(int seconds) {
     final duration = Duration(seconds: seconds);
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
     final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$twoDigitMinutes:$twoDigitSeconds";
+    return '$twoDigitMinutes:$twoDigitSeconds';
   }
 }

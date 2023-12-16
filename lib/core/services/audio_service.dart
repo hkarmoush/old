@@ -24,6 +24,22 @@ class AudioPlayerService {
     await _audioPlayer.seek(position);
   }
 
+  Future<void> forward() async {
+    final currentPosition = _audioPlayer.position;
+    final newPosition = currentPosition + const Duration(seconds: 5);
+    await _audioPlayer.seek(newPosition);
+  }
+
+  Future<void> backward() async {
+    final currentPosition = _audioPlayer.position;
+    final newPosition = currentPosition - const Duration(seconds: 5);
+    await _audioPlayer.seek(newPosition);
+  }
+
+  Duration? getDuration() {
+    return _audioPlayer.duration;
+  }
+
   Future<Duration> getCurrentPosition() async {
     return _audioPlayer.position;
   }

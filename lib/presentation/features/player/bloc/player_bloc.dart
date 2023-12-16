@@ -14,15 +14,14 @@ part 'player_bloc.freezed.dart';
 class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
   PlayerBloc() : super(const PlayerState.initial()) {
     on<PlayerEvent>(emitEvent);
-    _audioPlayerService.onPlayerStateChanged.listen((event) {
+    audioPlayerService.onPlayerStateChanged.listen((event) {
       if (event.processingState == ProcessingState.completed) {
-        playingTrack = null;
         _playingTrackController.add(null);
       }
     });
   }
 
-  final AudioPlayerService _audioPlayerService = AudioPlayerService();
+  final AudioPlayerService audioPlayerService = AudioPlayerService();
   final _playingTrackController = StreamController<TrackEntity?>.broadcast();
 
   TrackEntity? playingTrack;
@@ -41,9 +40,8 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         // You can add initialization logic here
       },
       play: (playEvent) async* {
-        log('Play');
         if (playingTrack != playEvent.track) {
-          await _audioPlayerService.stop();
+          await audioPlayerService.stop();
         }
 
         yield const PlayerState.loading();
@@ -51,7 +49,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         try {
           playingTrack = playEvent.track;
           _playingTrackController.add(playEvent.track);
-          await _audioPlayerService.play(playEvent.track.preview);
+          await audioPlayerService.play(playEvent.track.preview);
 
           yield const PlayerState.playing();
         } catch (error) {
@@ -59,18 +57,15 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         }
       },
       pause: (pauseEvent) async* {
-        log('Pause');
-        await _audioPlayerService.pause();
+        await audioPlayerService.pause();
         yield const PlayerState.paused();
       },
       resume: (resumeEvent) async* {
-        log('Resume');
-        await _audioPlayerService.resume();
+        await audioPlayerService.resume();
         yield const PlayerState.playing();
       },
       stop: (stopEvent) async* {
-        log('Stop');
-        await _audioPlayerService.stop();
+        await audioPlayerService.stop();
         playingTrack = null;
         _playingTrackController.add(null);
         yield const PlayerState.stopped();
