@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:just_audio/just_audio.dart';
@@ -17,6 +15,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     audioPlayerService.onPlayerStateChanged.listen((event) {
       if (event.processingState == ProcessingState.completed) {
         _playingTrackController.add(null);
+        emit(const PlayerState.stopped());
       }
     });
   }

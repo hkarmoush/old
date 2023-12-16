@@ -80,7 +80,7 @@ class Root extends StatelessWidget {
   }
 
   Widget _miniPlayer(BuildContext context) {
-    final playerBloc = context.read<PlayerBloc>();
+    final playerBloc = context.watch<PlayerBloc>();
     return StreamBuilder<TrackEntity?>(
       stream: playerBloc.playingTrackStream,
       initialData: playerBloc.playingTrack,

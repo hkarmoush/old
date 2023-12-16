@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,11 +27,14 @@ class _PlayerPageState extends State<PlayerPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
       ),
       body: BlocBuilder<PlayerBloc, PlayerState>(
+        buildWhen: (previous, current) {
+          return previous != current;
+        },
         builder: (context, state) {
           return Column(
             children: [
@@ -37,25 +42,7 @@ class _PlayerPageState extends State<PlayerPage> {
               _actions(context),
               _info(bloc, context),
               _playerSlider(bloc),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SvgPicture.asset(const $AssetsIconsGen().previous),
-                    InkWell(
-                      onTap: bloc.audioPlayerService.backward,
-                      child: SvgPicture.asset(const $AssetsIconsGen().backward),
-                    ),
-                    _leading(context),
-                    InkWell(
-                      onTap: bloc.audioPlayerService.forward,
-                      child: SvgPicture.asset(const $AssetsIconsGen().forward),
-                    ),
-                    SvgPicture.asset(const $AssetsIconsGen().next),
-                  ],
-                ),
-              ),
+              _playerAction(bloc, context),
             ],
           );
         },
@@ -63,8 +50,30 @@ class _PlayerPageState extends State<PlayerPage> {
     );
   }
 
-  Widget _leading(BuildContext context) {
-    final playerBloc = context.read<PlayerBloc>();
+  Padding _playerAction(PlayerBloc bloc, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SvgPicture.asset(const $AssetsIconsGen().previous),
+          InkWell(
+            onTap: bloc.audioPlayerService.backward,
+            child: SvgPicture.asset(const $AssetsIconsGen().backward),
+          ),
+          playPause(context),
+          InkWell(
+            onTap: bloc.audioPlayerService.forward,
+            child: SvgPicture.asset(const $AssetsIconsGen().forward),
+          ),
+          SvgPicture.asset(const $AssetsIconsGen().next),
+        ],
+      ),
+    );
+  }
+
+  Widget playPause(BuildContext context) {
+    final playerBloc = context.watch<PlayerBloc>();
 
     return StreamBuilder<TrackEntity?>(
       stream: playerBloc.playingTrackStream,
@@ -118,11 +127,15 @@ class _PlayerPageState extends State<PlayerPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                formatDuration(snapshot.data?.inSeconds ?? 0),
+                bloc.state != const PlayerState.stopped()
+                    ? formatDuration(snapshot.data?.inSeconds ?? 0)
+                    : '0',
               ),
               Expanded(
                 child: Slider(
-                  value: snapshot.data?.inSeconds.toDouble() ?? 0,
+                  value: bloc.state != const PlayerState.stopped()
+                      ? snapshot.data?.inSeconds.toDouble() ?? 0
+                      : 0,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (double value) {
                     bloc.audioPlayerService.seek(
@@ -174,17 +187,14 @@ class _PlayerPageState extends State<PlayerPage> {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: OutlinedButton(
-              // borderSide: BorderSide(color: Colors.white),
-              onPressed: () {
-                // Handle the first button press
-              },
+              onPressed: () {},
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.star, color: Colors.white),
-                  SizedBox(width: 8.0),
+                  SizedBox(width: 8),
                   Text(
                     'Follow',
                     style: TextStyle(color: Colors.white),
@@ -196,21 +206,19 @@ class _PlayerPageState extends State<PlayerPage> {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateColor.resolveWith(
                   (states) => Theme.of(context).primaryColor,
                 ),
               ),
-              onPressed: () {
-                // Handle the second button press
-              },
+              onPressed: () {},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.star, color: Colors.white),
-                  const SizedBox(width: 8.0),
+                  const SizedBox(width: 8),
                   Text(
                     'Shuffle',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
