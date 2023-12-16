@@ -16,13 +16,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final SearchUseCaseImpl searchUseCase;
 
-  @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     yield* event.map(
       started: (startedEvent) async* {
         try {
           yield const HomeState.loading();
-          final searchResult = await searchUseCase.search('Thrill');
+          final searchResult = await searchUseCase.search('Ramin');
           yield HomeState.searchSuccess(searchResult);
         } catch (error) {
           yield HomeState.searchError(error.toString());
